@@ -12,6 +12,16 @@ export default function Home() {
     document.getElementById("resMail").innerHTML = "e-mail: " + CryptoJS.AES.encrypt(mail.value.toString(), sk.value.toString());
     document.getElementById("resMessage").innerHTML = "message: " + CryptoJS.AES.encrypt(message.value.toString(), sk.value.toString());
   }
+
+  async function Decrypt(){
+    let name = document.getElementById("resName");
+    let mail = document.getElementById("resMail");
+    let message = document.getElementById("resMessage");
+
+    document.getElementById("Ndecrypt").innerHTML = "name: " + CryptoJS.AES.decrypt(name, sk.value.toString());
+    document.getElementById("Mdecrypt").innerHTML = "mail: " + CryptoJS.AES.decrypt(mail, sk.value.toString());
+    document.getElementById("Msgdecrypt").innerHTML = "message: " + CryptoJS.AES.decrypt(message, sk.value.toString());
+  }
   //console.log(SHA256("hello"))
   return (
     <Layout>
@@ -47,6 +57,15 @@ export default function Home() {
           <span id="resMessage"></span>
 
         </div>
+        <div>
+          <button onClick={Decrypt}>Decrypt data</button>
+        </div>
+
+        <span id="Ndecrypt"></span>
+        <br />
+        <span id="Mdecrypt"></span>
+        <br />
+        <span id="Msgdecrypt"></span>
 
       </div>
     </Layout>
