@@ -1,6 +1,5 @@
-import { Layout } from "../components/layout";
-const CryptoJS = require("crypto-js");
-
+import { Layout } from '../components/layout';
+const CryptoJS = require('crypto-js');
 
 export default function Home() {
 
@@ -8,16 +7,16 @@ export default function Home() {
     let name = document.getElementById("name");
     let mail = document.getElementById("mail");
     let message = document.getElementById("msg")
-    document.getElementById("resName").innerHTML = "name: " + CryptoJS.SHA256(name.value.toString());
-    document.getElementById("resMail").innerHTML = "e-mail: " + CryptoJS.SHA256(mail.value.toString());
-    document.getElementById("resMessage").innerHTML = "message: " + CryptoJS.SHA256(message.value.toString());
-
+    let sk = document.getElementById("sk");
+    document.getElementById("resName").innerHTML = "name: " + CryptoJS.AES.encrypt(name.value.toString(), sk.value.toString());
+    document.getElementById("resMail").innerHTML = "e-mail: " + CryptoJS.AES.encrypt(mail.value.toString(), sk.value.toString());
+    document.getElementById("resMessage").innerHTML = "message: " + CryptoJS.AES.encrypt(message.value.toString(), sk.value.toString());
   }
   //console.log(SHA256("hello"))
   return (
     <Layout>
       <div>
-        <h1>Cryptage en SHA256 !</h1>
+        <h1>Cryptage en AES !</h1>
         <div>
           <div>
             <label for="name">Nom :</label>
@@ -31,6 +30,11 @@ export default function Home() {
             <label for="msg">Message :</label>
             <textarea id="msg"></textarea>
           </div>
+          <div>
+            <label for="msg">Your secret Key :</label>
+            <textarea id="sk"></textarea>
+          </div>
+
           <button onClick={Cryptage}>Send</button>
 
         </div>
@@ -46,5 +50,6 @@ export default function Home() {
 
       </div>
     </Layout>
+
   )
 }
